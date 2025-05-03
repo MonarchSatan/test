@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Growtopia Info</title>
+  <style>
+    body { font-family: sans-serif; background: #e0f0ff; padding: 20px; }
+    .card { background: white; padding: 20px; border-radius: 12px; max-width: 500px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    img { max-width: 100%; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div class="card" id="growtopia-info">
+    <h2>Loading Growtopia data...</h2>
+  </div>
+
+  <script>
+    fetch('https://growtopiagame.com/detail')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('growtopia-info');
+        container.innerHTML = `
+          <h2>Growtopia Online Info</h2>
+          <p><strong>Online Users:</strong> ${data.online_user}</p>
+          <h3>World of the Day</h3>
+          <img src="https://growtopiagame.com/${data.world_day_images.full_size}" alt="WOTD">
+        `;
+      })
+      .catch(error => {
+        document.getElementById('growtopia-info').innerHTML = '<p>Gagal mengambil data.</p>';
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
